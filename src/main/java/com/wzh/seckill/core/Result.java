@@ -1,4 +1,4 @@
-package com.company.project.core;
+package com.wzh.seckill.core;
 
 import com.alibaba.fastjson.JSON;
 
@@ -9,6 +9,14 @@ public class Result<T> {
     private int code;
     private String message;
     private T data;
+
+    public Result() {
+    }
+
+    public Result(ResultCode code, String message) {
+        this.code = code.code();
+        this.message = message;
+    }
 
     public Result setCode(ResultCode resultCode) {
         this.code = resultCode.code();

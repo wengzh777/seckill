@@ -1,4 +1,4 @@
-package com.company.project.core;
+package com.wzh.seckill.core;
 
 
 import org.apache.ibatis.exceptions.TooManyResultsException;

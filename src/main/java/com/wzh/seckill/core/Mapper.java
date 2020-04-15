@@ -1,4 +1,4 @@
-package com.company.project.core;
+package com.wzh.seckill.core;
 
 import tk.mybatis.mapper.common.BaseMapper;
 import tk.mybatis.mapper.common.ConditionMapper;
