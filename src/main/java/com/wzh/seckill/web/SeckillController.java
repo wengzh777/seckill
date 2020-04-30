@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 /**
 * Created by CodeGenerator on 2020/04/15.
@@ -52,31 +51,33 @@ public class SeckillController {
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
+    /**
+     * @description 悲观锁
+     * @author wzh
+     * @date 2020/4/26 13:37
+     */
     @GetMapping("kill0")
     public Result seckill0(@RequestParam int id,@RequestParam int userId){
         return seckillService.seckill0(id,userId);
     }
 
+    /**
+     * @description 带缓存的悲观锁
+     * @author wzh
+     * @date 2020/4/26 13:37
+     */
     @GetMapping("kill1")
     public Result seckill1(@RequestParam int id,@RequestParam int userId) throws InterruptedException {
-        long start = System.currentTimeMillis();
-        CountDownLatch countDownLatch = new CountDownLatch(1000);
-        CountDownLatch doCountDownLatch = new CountDownLatch(1000);
-        for(int i = 1;i <= 1000;i++){
-            new Thread(()->{
-                countDownLatch.countDown();
-                try {
-                    countDownLatch.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                seckillService.seckill0(1004,1);
-                doCountDownLatch.countDown();
-            }).start();
-        }
-        doCountDownLatch.await();
-        System.out.println((System.currentTimeMillis() - start)/1000);
-        return null;
-//        return seckillService.seckill1(id,userId);
+        return seckillService.seckill1(id,userId);
+    }
+
+    /**
+     * @description 异步下单秒杀
+     * @author wzh
+     * @date 2020/4/26 15:58
+     */
+    @GetMapping("kill2")
+    public Result seckill2(@RequestParam int id,@RequestParam int userId) throws InterruptedException {
+        return seckillService.seckill2(id,userId);
     }
 }
