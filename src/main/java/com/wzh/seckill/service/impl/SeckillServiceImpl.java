@@ -143,7 +143,7 @@ public class SeckillServiceImpl extends AbstractService<Seckill> implements Seck
         int i = seckillMapper.decrNum(id);
         if (i > 0) {
             //异步下单
-            ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(KafkaConstant.TOPIC_CREATE_ORDER, id + "," + userId);
+            ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(KafkaConstant.TOPIC_CREATE_ORDER,1, id + "," + userId);
             future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
                 @Override
                 public void onFailure(Throwable throwable) {
@@ -161,7 +161,6 @@ public class SeckillServiceImpl extends AbstractService<Seckill> implements Seck
             objectRedisTemplate.boundValueOps(RedisConstant.SECKILL_NUM_KEY + id).increment(-1);
             return new Result(ResultCode.SUCCESS, "秒杀成功！");
         }
-
 
         return new Result(ResultCode.SUCCESS, "秒杀失败！");
     }

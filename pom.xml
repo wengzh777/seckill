@@ -93,6 +93,11 @@
             <artifactId>pagehelper</artifactId>
             <version>4.2.1</version>
         </dependency>
+        <!--kafka依赖-->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
         <!--阿里 FastJson依赖-->
         <dependency>
             <groupId>com.alibaba</groupId>
